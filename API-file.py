@@ -124,12 +124,7 @@ def model_predict(img_path, model):
    
     img = cv2.resize(img, (96,96))
     print (img.shape)
-    #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-   
-    #img = normalize(img)
-    
-    #img = np.expand_dims(img, axis=2)
-    
+     
     
     prediction = model.predict(np.expand_dims(img, axis=0), batch_size=1)
     
@@ -154,9 +149,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def index():
     # Main page
-    return render_template('pneumonia.html')
+    return render_template('breast.html')
 
-@app.route('/predictPneumonia', methods=['GET', 'POST'])
+@app.route('/predictBreastCancer', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         # Get the file from post request
@@ -174,14 +169,10 @@ def upload():
         pred_class = threshold_arr(preds)[0]
         
         if pred_class[0] == 1:
-            result = "This scan show an pneumonia result ! (" + str(preds[0][0]) + ")"
+            result = "This scan shows  a Breast cancer  ! (" + str(preds[0][0]) + ")"
         elif pred_class[1] == 1:
            result = " This scan shows no diseases  (" + str(preds[0][1]) + ")"
            
-#        elif pred_class[2] == 1:
-#           result = "DRUSEN (" + str(preds[0][2]) + ")"
-#        elif pred_class[3] == 1:
-#           result =  "NORMAL (" + str(preds[0][3]) + ")"
 
         if not SAVE_LOADED_IMAGES:
         	os.remove(file_path)
