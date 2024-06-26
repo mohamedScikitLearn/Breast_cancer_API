@@ -8,13 +8,13 @@ import numpy as np
 import cv2
 from sklearn.preprocessing import normalize
 
-# Keras
+#tf.keras modules
+import tensorflow as tf
 import keras
 from keras.layers import *
 from keras.optimizers import SGD
 from keras.models import load_model, Model
 from keras.callbacks import Callback, ModelCheckpoint, TensorBoard
-import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
@@ -113,7 +113,6 @@ def create_model():
     return model
 
 model = create_model()
-print(model.summary())
 model.load_weights(MODEL_SAVE_PATH)
 print('Model loaded. Check http://localhost:{}/'.format(args.port))
 
