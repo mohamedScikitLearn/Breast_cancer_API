@@ -160,6 +160,7 @@ def upload():
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
             basepath, 'uploads', secure_filename(f.filename))
+        print('saving files...')
         f.save(file_path)
 
         # Make prediction
@@ -171,8 +172,7 @@ def upload():
             result = "This scan shows  a Breast cancer  ! (" + str(preds[0][0]) + ")"
         elif pred_class[1] == 1:
            result = " This scan shows no diseases  (" + str(preds[0][1]) + ")"
-        	os.remove(file_path)
-
+            os.remove(file_path)
         return result
     return None
 	
