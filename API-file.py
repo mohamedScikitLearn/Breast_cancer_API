@@ -106,7 +106,6 @@ def create_model():
 
     model.add(Dense(2, activation = "softmax"))
 
-    #model = Model(init, x)
     model.compile(Adam(lr=0.0001), loss='binary_crossentropy', 
                   metrics=['accuracy'])
     
@@ -172,14 +171,10 @@ def upload():
             result = "This scan shows  a Breast cancer  ! (" + str(preds[0][0]) + ")"
         elif pred_class[1] == 1:
            result = " This scan shows no diseases  (" + str(preds[0][1]) + ")"
-           
-
-        if not SAVE_LOADED_IMAGES:
         	os.remove(file_path)
 
         return result
     return None
-
 	
 if __name__ == '__main__':
     http_server = WSGIServer(('', args.port), app)
