@@ -155,19 +155,15 @@ def upload():
     if request.method == 'POST':
         # Get the file from post request
         f = request.files['file']
-
         # Save the file to ./uploads
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
             basepath, 'uploads', secure_filename(f.filename))
-        print('saving files...')
+        print('saving file...')
         f.save(file_path)
-
         # Make prediction
         preds = model_predict(file_path, model)
-        print('here')
         pred_class = threshold_arr(preds)[0]
-        
         if pred_class[0] == 1:
             result = "This scan shows  a Breast cancer  ! (" + str(preds[0][0]) + ")"
         elif pred_class[1] == 1:
